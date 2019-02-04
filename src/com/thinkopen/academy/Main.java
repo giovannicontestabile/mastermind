@@ -28,9 +28,8 @@ public class Main {
         do {
             if(tentativi++!=0) System.out.println("Tentativo n."+tentativi+"\nInput non valido e/o combinazione errata.\nRiprova.\n");
             System.out.println(_START_MESSAGE);
-            String combinazione=inputDaTastiera.nextLine();
-            validazione=
-        }while (validazione);
+            combinazione= inputDaTastiera.nextLine();
+        }while (selettoreValidatori.validate(combinazione));
 
 
     }
