@@ -65,42 +65,21 @@ public class ValidatorString {
         //Genero una matrice input+input*secret
         for (int i = 0; i < input.length(); i++) {
             parziale[i][0] = String.valueOf(temp[i]);
-            if(temp[i]!=matcher[i])
-            {
+
+            if (temp[i] != matcher[i]) {
                 for (int j = 0; j < combinazionSegreta.length(); j++) {
                     /***
                      * Replaced version String/String
                      */
-                    switch(i){
-
-                        case 2 : if (temp[i] == matcher[j-2]) {
-                                             parziale[i][j-2] = String.valueOf(temp[i]);
-                                 }else if (temp[i+1] == matcher[j]) {
-                                             parziale[i][j -2] = String.valueOf(temp[i]);
-                                 }
-                                 else {
-                                            parziale[i][j -2] = null;
-                                 }
-
-                        case 1 :if (temp[i] == matcher[j-1]) {
-                                            parziale[i][j-1] = String.valueOf(temp[i]);
-                                }else if (temp[i+1] == matcher[j]) {
-                                            parziale[i][j + 1] = String.valueOf(temp[i]);
-                                }
-                                else {
-                                            parziale[i][j + 1] = null;
-                                }
-                        default: if (temp[i] == matcher[j]) {
-                                            parziale[i][j] = String.valueOf(temp[i]);
-                                } else {
-                                            parziale[i][j + 1] = null;
-                                }
-                                break;
-                        }
+                    if ((i!=j)&&temp[i] == matcher[j]) {
+                        parziale[i][j + 1] = String.valueOf(temp[i]);
+                        match++;
+                    } else {
+                        parziale[i][j+1] = null;
                     }
                 }
             }
-
+        }
         return false;
     }
 
@@ -116,4 +95,44 @@ public class ValidatorString {
  parziale[i][j + 1] = null;
  }
  }
+ */
+
+
+/***version switch i WRONG EDITION
+
+ switch((i==j)){
+
+ case 2 : if (temp[i] == matcher[j]) {
+ parziale[i][j+1] = String.valueOf(temp[i]);
+ match++;
+ }else if (temp[i] == matcher[j]) {
+ parziale[i][j] = String.valueOf(temp[i]);
+ }
+ else {
+ parziale[i][j] = null;
+ }
+
+ case 1 :if (temp[i] == matcher[j-1]) {
+ parziale[i][j-1] = String.valueOf(temp[i]);
+ match++;
+ }else if (temp[i+1] == matcher[j]) {
+ parziale[i][j + 1] = String.valueOf(temp[i]);
+ match++;
+
+ }
+ else {
+ parziale[i][j + 1] = null;
+ }
+ default: if (temp[i] == matcher[j]) {
+ parziale[i][j] = String.valueOf(temp[i]);
+ match++;
+
+ } else {
+ parziale[i][j + 1] = null;
+ }
+ break;
+ }
+
+
+
  */
