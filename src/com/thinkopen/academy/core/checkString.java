@@ -6,13 +6,16 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class checkString {
-    private static String[][] parziale = new String[3][4];
+    private String checkOut[]=new String[2];
+    private static String[][] parziale ;
     private static int match = 0;
     private static String combinazioneSegreta = new String();
 
     checkString(Object input) {
         leggiConfigurazioneCodice();
         String inputToTest=input.toString();
+        String parziale[][]=new String [inputToTest.length()][inputToTest.length()+1];
+
     }
 
     private void leggiConfigurazioneCodice() {
@@ -96,6 +99,14 @@ public class checkString {
         return false;
     }
 
+    public void setCheckOut(String fullMatch,String partialMatch) {
+        this.checkOut[0]= fullMatch;
+        this.checkOut[1]=partialMatch;
+    }
+
+    public String[] getCheckOut() {
+        return checkOut;
+    }
 }
 
 
