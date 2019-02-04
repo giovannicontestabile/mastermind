@@ -64,36 +64,38 @@ public class ValidatorString {
         char temp[] = input.toCharArray();
         //Genero una matrice input+input*secret
         for (int i = 0; i < input.length(); i++) {
+            parziale[i][0] = String.valueOf(temp[i]);
             if(temp[i]!=matcher[i])
             {
-                parziale[i][0] = String.valueOf(temp[i]);
                 for (int j = 0; j < combinazionSegreta.length(); j++) {
                     /***
-                     * Replace version String/String
+                     * Replaced version String/String
                      */
                     switch(i){
-                        case 0: if (temp[i+1] == matcher[j]) {
-                                            parziale[i][j + 1] = String.valueOf(temp[i]);
-                                } else {
-                                            parziale[i][j + 1] = null;
-                                }
-                        case 1 :if (temp[i-1] == matcher[j]) {
-                                            parziale[i][j + 1] = String.valueOf(temp[i]);
+
+                        case 2 : if (temp[i] == matcher[j-2]) {
+                                             parziale[i][j-2] = String.valueOf(temp[i]);
+                                 }else if (temp[i+1] == matcher[j]) {
+                                             parziale[i][j -2] = String.valueOf(temp[i]);
+                                 }
+                                 else {
+                                            parziale[i][j -2] = null;
+                                 }
+
+                        case 1 :if (temp[i] == matcher[j-1]) {
+                                            parziale[i][j-1] = String.valueOf(temp[i]);
                                 }else if (temp[i+1] == matcher[j]) {
                                             parziale[i][j + 1] = String.valueOf(temp[i]);
                                 }
                                 else {
                                             parziale[i][j + 1] = null;
                                 }
-                        default:if (temp[-2] == matcher[j]) {
-                                            parziale[i][j + 1] = String.valueOf(temp[i]);
-                                } else if (temp[i+1] == matcher[j]) {
-                                            parziale[i][j + 1] = String.valueOf(temp[i]);
-                                }
-
-                        else {
+                        default: if (temp[i] == matcher[j]) {
+                                            parziale[i][j] = String.valueOf(temp[i]);
+                                } else {
                                             parziale[i][j + 1] = null;
                                 }
+                                break;
                         }
                     }
                 }
