@@ -78,6 +78,9 @@ public class ValidatorString {
                         parziale[i][j+1] = null;
                     }
                 }
+            }else{
+                parziale[i][i+ 1] = String.valueOf(temp[i]);
+                match++;
             }
         }
         return false;
