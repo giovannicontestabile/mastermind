@@ -1,7 +1,5 @@
 package com.thinkopen.academy;
 
-import com.thinkopen.academy.util.Validator;
-
 import java.util.Scanner;
 
 public class Main {
@@ -21,15 +19,17 @@ public class Main {
 
         boolean validazione=false;//inzializza la variabile di validazione per check inserimento input todo : ed eventuale factorized engine del core del controllo del programma
         int tentativi=0;
-        SelectValidator selettore = new SelectValidator();
 
         Scanner inputDaTastiera= new Scanner(System.in);
         System.out.println(_TITLE);
+        System.out.println(_START_MESSAGE);
+        String combinazione=inputDaTastiera.nextLine();
+        SelectValidator selettoreValidatori= new SelectValidator(combinazione);
         do {
             if(tentativi++!=0) System.out.println("Tentativo n."+tentativi+"\nInput non valido e/o combinazione errata.\nRiprova.\n");
             System.out.println(_START_MESSAGE);
             String combinazione=inputDaTastiera.nextLine();
-            validazione=Validator.validaStringaInput(combinazione);
+            validazione=
         }while (validazione);
 
 

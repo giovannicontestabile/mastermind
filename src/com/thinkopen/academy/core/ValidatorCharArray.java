@@ -1,4 +1,4 @@
-package com.thinkopen.academy;
+package com.thinkopen.academy.core;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class ValidatorCharArray {
             char[] vettoreChar = (char[]) input;
             boolean controllo = (vettoreChar.length == 3);
             if (controllo) {
-                return com.thinkopen.academy.ValidatorCharArray.controllaCombinazione(vettoreChar);
+                return ValidatorCharArray.controllaCombinazione(vettoreChar);
             }
             return false;
         }

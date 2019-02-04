@@ -1,6 +1,6 @@
-package com.thinkopen.academy.util;
+package com.thinkopen.academy.util.Validator;
 
-public class Validator {
+public class ValidatorStringInput {
     static int lunghezza=3;
     //Controlla le l'input è lungo 3 caratteri ed è un numero
     public static boolean validaStringaInput(String input){
@@ -22,7 +22,7 @@ public class Validator {
     }
 
     public static void setLunghezza(int lunghezza) {
-        Validator.lunghezza = lunghezza;
+        ValidatorStringInput.lunghezza = lunghezza;
     }
 
     public static int getLunghezza() {

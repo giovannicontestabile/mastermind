@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Validator {
+public class ValidatorStringInput {
 
     private static String[][] parziale = new String[3][4];
     private static int match = 0;
@@ -42,7 +42,7 @@ public class Validator {
         char[] vettoreChar = (char[]) input;
         boolean controllo = (vettoreChar.length == 3);
         if (controllo) {
-            return Validator.controllaCombinazione(vettoreChar);
+            return ValidatorStringInput.controllaCombinazione(vettoreChar);
         }
         return false;
     }

@@ -1,4 +1,4 @@
-package com.thinkopen.academy;
+package com.thinkopen.academy.core;
 
 import java.io.FileInputStream;
 import java.io.IOException;
