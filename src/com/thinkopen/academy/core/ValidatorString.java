@@ -12,8 +12,9 @@ public class ValidatorString {
 
     //private boolean isANumber(){ }
     //todo Costruttore
-    ValidatorString() {
+    ValidatorString(Object input) {
         leggiConfigurazioneCodice();
+        String inputToTest=input.toString();
     }
 
     private void leggiConfigurazioneCodice() {
@@ -38,19 +39,19 @@ public class ValidatorString {
 
 
     //todo VALIDATE STRING from Generic
-    public static boolean validaString(String input) {
+    public boolean validaString(String input) {
         boolean controllo = (input.length() == 3);
         if (controllo) {
-            return ValidatorString.controllaCombinazione(input);
+            return this.controllaCombinazione(input);
         }
         return false;
     }
     //todo  CONTROLLACOMBINAZIONE STRING
-    private static boolean controllaCombinazione(String input) {
+    private boolean controllaCombinazione(String input) {
 
 
         if (!ValidatorString.combinazioneSegreta.equals(input)) {
-            return ValidatorString.controllaCombinazione(input, combinazioneSegreta);
+            return this.controllaCombinazione(input, combinazioneSegreta);
         } else {
             return true;
         }
@@ -58,22 +59,59 @@ public class ValidatorString {
 
 
     //todo CONTROLLACOMBINAZIONE STRING/STRING
-    private static boolean controllaCombinazione(String input, String combinazionSegreta) {
+    private boolean controllaCombinazione(String input, String combinazionSegreta) {
         char matcher[] = combinazionSegreta.toCharArray();
         char temp[] = input.toCharArray();
+        //Genero una matrice input+input*secret
         for (int i = 0; i < input.length(); i++) {
-           // if (match >= 3) break;
-            parziale[i][0] = String.valueOf(temp[i]);
-            for (int j = 0; j < combinazionSegreta.length(); j++) {
-                match = +((temp[i] == matcher[j]) ? 1 : 0);
-                if (temp[i] == matcher[j]) {
-                    parziale[i][j + 1] = String.valueOf(temp[i]);
-                } else {
-                    parziale[i][j + 1] = null;
+            if(temp[i]!=matcher[i])
+            {
+                parziale[i][0] = String.valueOf(temp[i]);
+                for (int j = 0; j < combinazionSegreta.length(); j++) {
+                    /***
+                     * Replace version String/String
+                     */
+                    switch(i){
+                        case 0: if (temp[i+1] == matcher[j]) {
+                                            parziale[i][j + 1] = String.valueOf(temp[i]);
+                                } else {
+                                            parziale[i][j + 1] = null;
+                                }
+                        case 1 :if (temp[i-1] == matcher[j]) {
+                                            parziale[i][j + 1] = String.valueOf(temp[i]);
+                                }else if (temp[i+1] == matcher[j]) {
+                                            parziale[i][j + 1] = String.valueOf(temp[i]);
+                                }
+                                else {
+                                            parziale[i][j + 1] = null;
+                                }
+                        default:if (temp[-2] == matcher[j]) {
+                                            parziale[i][j + 1] = String.valueOf(temp[i]);
+                                } else if (temp[i+1] == matcher[j]) {
+                                            parziale[i][j + 1] = String.valueOf(temp[i]);
+                                }
+
+                        else {
+                                            parziale[i][j + 1] = null;
+                                }
+                        }
+                    }
                 }
             }
-        }
+
         return false;
     }
 
 }
+
+
+/**** old version of control string/string
+ {
+ match = +((temp[i] == matcher[j]) ? 1 : 0);
+ if (temp[i] == matcher[j]) {
+ parziale[i][j + 1] = String.valueOf(temp[i]);
+ } else {
+ parziale[i][j + 1] = null;
+ }
+ }
+ */
