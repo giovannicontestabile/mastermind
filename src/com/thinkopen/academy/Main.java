@@ -29,7 +29,7 @@ public class Main {
             if(tentativi++!=0) System.out.println("Tentativo n."+tentativi+"\nInput non valido e/o combinazione errata.\nRiprova.\n");
             System.out.println(_START_MESSAGE);
             combinazione= inputDaTastiera.nextLine();
-        }while (selettoreValidatori.validate(combinazione));
+        }while (selettoreValidatori.validateInput());
         //Controllo CodiceSegreto
     }
 }

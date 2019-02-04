@@ -13,7 +13,7 @@ public class ValidatorStringInput {
 
     //private boolean isANumber(){ }
     //todo Costruttore
-    ValidatorString() {
+    checkString() {
         leggiConfigurazioneCodice();
     }
 

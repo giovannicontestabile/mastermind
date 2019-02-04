@@ -5,14 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ValidatorString {
+public class checkString {
     private static String[][] parziale = new String[3][4];
     private static int match = 0;
     private static String combinazioneSegreta = new String();
 
-    //private boolean isANumber(){ }
-    //todo Costruttore
-    ValidatorString(Object input) {
+    checkString(Object input) {
         leggiConfigurazioneCodice();
         String inputToTest=input.toString();
     }
@@ -37,7 +35,7 @@ public class ValidatorString {
         }
     }
 
-
+/*** old version
     //todo VALIDATE STRING from Generic
     public boolean validaString(String input) {
         boolean controllo = (input.length() == 3);
@@ -46,32 +44,29 @@ public class ValidatorString {
         }
         return false;
     }
-    //todo  CONTROLLACOMBINAZIONE STRING
+
+    **/
+
     private boolean controllaCombinazione(String input) {
-
-
-        if (!ValidatorString.combinazioneSegreta.equals(input)) {
+        if (!checkString.combinazioneSegreta.equals(input)) {
             return this.controllaCombinazione(input, combinazioneSegreta);
         } else {
             return true;
         }
     }
 
-
-    //todo CONTROLLACOMBINAZIONE STRING/STRING
-    private boolean controllaCombinazione(String input, String combinazionSegreta) {
+    private String[][] matrixGenerator(String input, String combinazionSegreta)
+    {
         char matcher[] = combinazionSegreta.toCharArray();
         char temp[] = input.toCharArray();
         //Genero una matrice input+input*secret
         for (int i = 0; i < input.length(); i++) {
             parziale[i][0] = String.valueOf(temp[i]);
-
             if (temp[i] != matcher[i]) {
                 for (int j = 0; j < combinazionSegreta.length(); j++) {
-                    /***
-                     * Replaced version String/String
-                     */
-                    if ((i!=j)&&temp[i] == matcher[j]) {
+                    /*** Replaced version String/String*/
+                    if ( ( i!=j)  && ( temp[i] == matcher[j] ) )
+                    {
                         parziale[i][j + 1] = String.valueOf(temp[i]);
                         match++;
                     } else {
@@ -82,6 +77,21 @@ public class ValidatorString {
                 parziale[i][i+ 1] = String.valueOf(temp[i]);
                 match++;
             }
+        }
+        return parziale;
+    }
+
+    //todo CONTROLLACOMBINAZIONE STRING/STRING
+    private boolean controllaCombinazione(String input, String combinazionSegreta) {
+        String[][] matrixData=matrixGenerator(input,combinazionSegreta);
+        int fullMatch=0,partialMatch=0;
+        for (int i=0;i<input.length();i++){
+            int j=1;
+            if (matrixData[i][0]==matrixData[i][1]){
+                fullMatch++;
+                break;
+            }
+            if(matrixData[i][0]==matrixData[i][j++]&&(i!=(j-1)))partialMatch++;
         }
         return false;
     }

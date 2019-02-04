@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ValidatorCharArray {
+public class checkCharArray {
 
 
         private static String[][] parziale = new String[3][4];
@@ -14,7 +14,7 @@ public class ValidatorCharArray {
 
         //private boolean isANumber(){ }
         //todo Costruttore
-        ValidatorCharArray() {
+        checkCharArray() {
             leggiConfigurazioneCodice();
         }
 
@@ -43,7 +43,7 @@ public class ValidatorCharArray {
             char[] vettoreChar = (char[]) input;
             boolean controllo = (vettoreChar.length == 3);
             if (controllo) {
-                return ValidatorCharArray.controllaCombinazione(vettoreChar);
+                return checkCharArray.controllaCombinazione(vettoreChar);
             }
             return false;
         }

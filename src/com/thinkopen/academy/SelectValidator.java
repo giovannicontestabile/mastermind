@@ -1,23 +1,44 @@
 package com.thinkopen.academy;
 
-import com.thinkopen.academy.core.ValidatorCharArray;
 import com.thinkopen.academy.util.Validator.ValidatorCharArrayInput;
 import com.thinkopen.academy.util.Validator.ValidatorStringInput;
-
-public class SelectValidator implements Validatori{
+//todo cercare factory e factory builder
 //todo Costruttore
+//todo GENERIC STRATEGY
+//todo VALIDATE PUBLIC GENERIC
+//un factory che restituisce uno strategy object
+
+public class SelectValidator /*implements Validatori*/{
+
+    private Object toValidate;
 
 SelectValidator(Object input) {
 
-    ValidatorStringInput.validaStringaInput((String) input);
-        //todo cercare factory e factory builder
-        //un factory che restituisce uno strategy object
-    }
-        //IMPLEMENTO INTERFACCIA
-        //todo GENERIC STRATEGY
-        //todo VALIDATE PUBLIC GENERIC
+    toValidate=castedObject(input);
 
-        @Override
+    }
+
+    private String castedObject(Object input) {
+        if (input instanceof String) {
+            return (String) input;
+        } else if (input instanceof char[]) {
+            return (String) input;
+        }else {
+            return null;
+        }
+    }
+    public  boolean validateInput() {
+        if (toValidate instanceof String) {
+            return ValidatorStringInput.validaStringaInput((String) toValidate);
+        } else if (toValidate instanceof char[]) {
+            return ValidatorCharArrayInput.validaCharArrayInput((char[]) toValidate);
+        }else {
+            return false;
+        }
+    }
+
+   /****old version
+    *  @Override
         public  boolean validate(Object input) {
             if (input instanceof String) {
                 return ValidatorStringInput.validaStringaInput((String) input);
@@ -27,4 +48,5 @@ SelectValidator(Object input) {
                 return false;
             }
         }
+        */
 }
