@@ -6,14 +6,15 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class checkString {
+    String inputToTest;
     private String checkOut[]=new String[2];
     private static String[][] parziale ;
     private static int match = 0;
     private static String combinazioneSegreta = new String();
 
-    checkString(Object input) {
+    public checkString(Object input) {
         leggiConfigurazioneCodice();
-        String inputToTest=input.toString();
+        inputToTest=input.toString();
         String parziale[][]=new String [inputToTest.length()][inputToTest.length()+1];
 
     }
@@ -58,6 +59,21 @@ public class checkString {
         }
     }
 
+    private boolean controllaCombinazione(String input, String combinazionSegreta) {
+        String[][] matrixData=matrixGenerator(input,combinazionSegreta);
+        int fullMatch=0,partialMatch=0;
+        for (int i=0;i<input.length();i++){
+            int j=1;
+            if (matrixData[i][0]==matrixData[i][1]){
+                fullMatch++;
+                break;
+            }
+            if(matrixData[i][0]==matrixData[i][j++]&&(i!=(j-1)))partialMatch++;
+        }
+        this.setCheckOut(fullMatch,partialMatch);
+        return false;
+    }
+
     private String[][] matrixGenerator(String input, String combinazionSegreta)
     {
         char matcher[] = combinazionSegreta.toCharArray();
@@ -84,28 +100,18 @@ public class checkString {
         return parziale;
     }
 
-    //todo CONTROLLACOMBINAZIONE STRING/STRING
-    private boolean controllaCombinazione(String input, String combinazionSegreta) {
-        String[][] matrixData=matrixGenerator(input,combinazionSegreta);
-        int fullMatch=0,partialMatch=0;
-        for (int i=0;i<input.length();i++){
-            int j=1;
-            if (matrixData[i][0]==matrixData[i][1]){
-                fullMatch++;
-                break;
-            }
-            if(matrixData[i][0]==matrixData[i][j++]&&(i!=(j-1)))partialMatch++;
-        }
-        return false;
-    }
-
-    public void setCheckOut(String fullMatch,String partialMatch) {
-        this.checkOut[0]= fullMatch;
-        this.checkOut[1]=partialMatch;
+    private void setCheckOut(int fullMatch,int partialMatch) {
+        this.checkOut[0]= String.valueOf(fullMatch);
+        this.checkOut[1]= String.valueOf(partialMatch);
     }
 
     public String[] getCheckOut() {
         return checkOut;
+    }
+    
+    public boolean check()
+    {
+        return controllaCombinazione(inputToTest);
     }
 }
 

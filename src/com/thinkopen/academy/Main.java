@@ -1,5 +1,7 @@
 package com.thinkopen.academy;
 
+import com.thinkopen.academy.core.checkString;
+
 import java.util.Scanner;
 
 public class Main {
@@ -25,11 +27,24 @@ public class Main {
         System.out.println(_START_MESSAGE);
         String combinazione=inputDaTastiera.nextLine();
         SelectValidator selettoreValidatori= new SelectValidator(combinazione);
+        checkString checker=new checkString(combinazione);
         do {
+            do {
+                if(tentativi++!=0) System.out.println("Tentativo n."+tentativi+"\nInput non valido e/o combinazione errata.\nRiprova.\n");
+                System.out.println(_START_MESSAGE);
+                combinazione= inputDaTastiera.nextLine();
+            }while (selettoreValidatori.validateInput());
+            if(checker.check())viewCheckOut(checker.getCheckOut());
             if(tentativi++!=0) System.out.println("Tentativo n."+tentativi+"\nInput non valido e/o combinazione errata.\nRiprova.\n");
             System.out.println(_START_MESSAGE);
             combinazione= inputDaTastiera.nextLine();
-        }while (selettoreValidatori.validateInput());
+        }while(true);
+
         //Controllo CodiceSegreto
+
+    }
+
+    private static void viewCheckOut(String[] checkOut) {
+        System.out.println("N. "+checkOut[0]+" elementi corretti | N. "+checkOut[1]+" elementi in posizione errata.");
     }
 }
