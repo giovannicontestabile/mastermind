@@ -29,8 +29,10 @@ SelectValidator(Object input) {
     }
     public  boolean validateInput() {
         if (toValidate instanceof String) {
+            System.out.println("instanceStringTrue");//debug TODO WORKS!!! GO NEXT
             return ValidatorStringInput.validaStringaInput((String) toValidate);
         } else if (toValidate instanceof char[]) {
+            System.out.println("instanceStringFalse");//debug
             return ValidatorCharArrayInput.validaCharArrayInput((char[]) toValidate);
         }else {
             return false;

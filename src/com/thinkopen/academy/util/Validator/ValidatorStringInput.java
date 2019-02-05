@@ -8,17 +8,28 @@ public class ValidatorStringInput {
 
         boolean b = false;
         if(input.length()==3) {
-            for (int i = 0; i < lunghezza; i++) {
+            System.out.println("inputLenghtTrue");//debug
                     b = false;
                     for (int j = 0; j < lunghezza; j++) {
                         char charr = input.charAt(j);
-                        b = '0' <= charr && charr <= '9';
-                        if (!b) {
+                        int a;
+                        try{
+                            a=Integer.parseInt(String.valueOf(charr));
+                            b=(0<=a&&a<=9);
+                            System.out.println("checkBetwin0-9 and b="+b);//debug
+                        }catch (NumberFormatException e){
+                            System.out.println(e);
+                        }
+
+                        System.out.println("charr="+charr);//debug
+                        if (b) {
+                            System.out.println("ifDigitTrue");//debug
+
+                        }else {
+                            System.out.println("ifDigitFalse");//debug
                             return false;
                         }
                     }
-
-            }
         }
         return b;
     }

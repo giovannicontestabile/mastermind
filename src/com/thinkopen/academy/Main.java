@@ -18,7 +18,7 @@ public class Main {
         Config.configurazione();//Inizializza,aggiorna e legge il file conf per la generazione del codice segreto
 
         boolean validazione=false;//inzializza la variabile di validazione per check inserimento input todo : ed eventuale factorized engine del core del controllo del programma
-        int tentativi=0;
+        int tentativi=1;
 
         Scanner inputDaTastiera= new Scanner(System.in);
         System.out.println(_TITLE);
@@ -28,13 +28,15 @@ public class Main {
         checkString checker/*=new checkString(combinazione)*/;//TODO FARE IL SET COMBINAZIONE SENNO NN SI AGGIORNA
         do {
             do {
+                System.out.println("###while1###");
                 if(tentativi++!=0) System.out.println("Tentativo n."+tentativi+"\nInput non valido e/o combinazione errata.\nRiprova.\n");
                 System.out.println(_START_MESSAGE);
                 combinazione= inputDaTastiera.nextLine();
                 //TODO MODIFICARE LA FUNZIONE CHE SEGUE PER OTTIMIZZARE.
                 checker=new checkString(combinazione);
-            }while (selettoreValidatori.validateInput());
-                if(!checker.check()){
+            }while (!(selettoreValidatori.validateInput()));
+            System.out.println("finische il while1");//debug
+            if(checker.check()){
                     viewCheckOut(checker.getCheckOut());
                 }else {
                     WIN(combinazione,tentativi);

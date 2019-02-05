@@ -1,5 +1,7 @@
 package com.thinkopen.academy.core;
 
+import com.sun.xml.internal.fastinfoset.util.CharArray;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,14 +10,14 @@ import java.util.Properties;
 public class checkString {
     String inputToTest;
     private String checkOut[]=new String[2];
-    private static String[][] parziale ;
+    //private static char[][] parziale ;//problema qui todo debug
     private static int match = 0;
     private static String combinazioneSegreta = new String();
 
     public checkString(Object input) {
         leggiConfigurazioneCodice();
         inputToTest=input.toString();
-        String parziale[][]=new String [inputToTest.length()][inputToTest.length()+1];
+
 
     }
 
@@ -52,15 +54,15 @@ public class checkString {
     **/
 
     private boolean controllaCombinazione(String input) {
-        if (!checkString.combinazioneSegreta.equals(input)) {
-            return this.controllaCombinazione(input, combinazioneSegreta);
-        } else {
+        if (checkString.combinazioneSegreta.equals(input)) {
             return true;
+        } else {
+            return this.controllaCombinazione(input, combinazioneSegreta);
         }
     }
 
     private boolean controllaCombinazione(String input, String combinazionSegreta) {
-        String[][] matrixData=matrixGenerator(input,combinazionSegreta);
+        char[][] matrixData=matrixGenerator(input,combinazionSegreta);
         int fullMatch=0,partialMatch=0;
         for (int i=0;i<input.length();i++){
             int j=1;
@@ -74,26 +76,32 @@ public class checkString {
         return false;
     }
 
-    private String[][] matrixGenerator(String input, String combinazionSegreta)
+    private char[][] matrixGenerator(String input, String combinazionSegreta)
     {
-        char matcher[] = combinazionSegreta.toCharArray();
-        char temp[] = input.toCharArray();
+        char parziale[][]= new char[inputToTest.length()][inputToTest.length() + 1];
+        System.out.println("## Combinazione segreta="+combinazionSegreta+"\n## Input="+input);//Todo .tochararray nullpointer exeption
+        char matcher[]=new char[combinazionSegreta.length()];
+        char temp[]= new char[input.length()];
+        for (int i=0;i<(combinazionSegreta.length());i++){
+            matcher[i]=combinazionSegreta.charAt(i);
+            temp[i]= input.charAt(i);
+        }
         //Genero una matrice input+input*secret
         for (int i = 0; i < input.length(); i++) {
-            parziale[i][0] = String.valueOf(temp[i]);
+            parziale[i][0] = temp[i];
             if (temp[i] != matcher[i]) {
                 for (int j = 0; j < combinazionSegreta.length(); j++) {
                     /*** Replaced version String/String*/
                     if ( ( i!=j)  && ( temp[i] == matcher[j] ) )
                     {
-                        parziale[i][j + 1] = String.valueOf(temp[i]);
+                        parziale[i][j + 1] = temp[i];
                         match++;
                     } else {
-                        parziale[i][j+1] = null;
+                        parziale[i][j+1] = 'x';
                     }
                 }
             }else{
-                parziale[i][i+ 1] = String.valueOf(temp[i]);
+                parziale[i][i+ 1] = temp[i];
                 match++;
             }
         }
@@ -108,9 +116,10 @@ public class checkString {
     public String[] getCheckOut() {
         return checkOut;
     }
-    
+
     public boolean check()
     {
+        System.out.println("checkIngress");//debug
         return controllaCombinazione(inputToTest);
     }
 }
