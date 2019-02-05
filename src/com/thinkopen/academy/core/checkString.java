@@ -64,6 +64,7 @@ public class checkString {
     private boolean controllaCombinazione(String input, String combinazionSegreta) {
         char[][] matrixData=matrixGenerator(input,combinazionSegreta);
         int fullMatch=0,partialMatch=0;
+        //TODO FIX E DEBUG QUI CORENGINE
         for (int i=0;i<input.length();i++){
             int j=1;
             if (matrixData[i][0]==matrixData[i][1]){
