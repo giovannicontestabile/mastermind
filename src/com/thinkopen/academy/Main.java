@@ -26,6 +26,7 @@ public class Main {
         String combinazione=inputDaTastiera.nextLine();
         SelectValidator selettoreValidatori= new SelectValidator(combinazione);
         checkString checker/*=new checkString(combinazione)*/;//TODO FARE IL SET COMBINAZIONE SENNO NN SI AGGIORNA
+        //TODO FIXARE INPUT < 3
         do {
             do {
                 System.out.println("###while1###");
@@ -36,7 +37,7 @@ public class Main {
                 checker=new checkString(combinazione);
             }while (!(selettoreValidatori.validateInput()));
             System.out.println("finische il while1");//debug
-            if(checker.check()){
+            if(!(checker.check())){
                     viewCheckOut(checker.getCheckOut());
                 }else {
                     WIN(combinazione,tentativi);
